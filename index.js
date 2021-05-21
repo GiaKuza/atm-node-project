@@ -20,7 +20,18 @@ const atmFunctions = require('./atm');
 
 //write a menu 
 
+function displayBal(info){
+    let bal = atmFunctions.getBalance(info);
+    console.log("Your current balance is " + bal + "\n");
+    sleep(3000);
+    console.log("press x to return to the main menu...")
+    let userSelection = prompt("> ");
+    if(userSelection == 'x'){
+    console.log("\nReturning to the main menu...");
+    }
+    return;
 
+}
 
 function displayUserMenu(){
     
@@ -35,23 +46,27 @@ function displayUserMenu(){
     sleep(2000);
     
     
-    console.log("\nPlease make a selection from the following menu:\n");    
-    var userSelection = prompt('\n(1) View Account Balance\n(2) Withdrawal\n(3) Deposits\n(4) Exit\n');
-    while(parseInt(userSelection) != 4){
+    console.log("\nPlease make a selection from the following menu:\n"); 
+    console.log("\n(1) View Account Balance\n(2) Withdrawal\n(3) Deposits\n(4) Exit\n")   
+    var userSelection = prompt('> ');
+    while(parseInt(userSelection) > 0 && parseInt(userSelection) < 5 ){
     switch (parseInt(userSelection)){
         case 1:
-            atmFunctions.getBalance(userInfoValidated);
+            displayBal(userInfoValidated);
+            
             break;
         case 2:
             atmFunctions.withdraw(userInfoValidated);
             break;
         case 3:
-            atmFunctions.deposit();
+            atmFunctions.deposit(userInfoValidated);
             break;
         case 4:
+            console.log("Exiting... Good Bye!")
             return;
         }
-        userSelection = prompt('\n(1) View Account Balance\n(2) Withdrawal\n(3) Deposits\n(4) Exit\n');
+        console.log('\n(1) View Account Balance\n(2) Withdrawal\n(3) Deposits\n(4) Exit\n')
+        userSelection = prompt("> ");
        
     }//end of while loop
     }
